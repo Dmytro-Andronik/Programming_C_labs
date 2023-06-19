@@ -1,82 +1,78 @@
-#include <iostream>
-using namespace std;
+using System;
 
-int main()
+interface ILamp
 {
-    int X, Y, Z, tempo;
-    cout << "X = ";
-    cin >> X;
-    cout << "Y = ";
-    cin >> Y;
-    cout << "Z = ";
-    cin >> Z;
-    if (X == Y && Y == Z)
+    void PrintDetails();
+    void ChangePower(int newPower);
+}
+
+
+interface ICamera
+{
+    void PrintDetails();
+    void ChangeLensSensitivity(int newSensitivity);
+}
+
+
+class PhotoStudio : ILamp, ICamera
+{
+    private string lampType;
+    private string lampManufacturer;
+    private int lampPower;
+    private int lampLightElements;
+    private string cameraType;
+    private string cameraManufacturer;
+    private int cameraLensSensitivity;
+
+    public PhotoStudio(string lampType, string lampManufacturer, int lampPower, int lampLightElements,
+                       string cameraType, string cameraManufacturer, int cameraLensSensitivity)
     {
-
+        this.lampType = lampType;
+        this.lampManufacturer = lampManufacturer;
+        this.lampPower = lampPower;
+        this.lampLightElements = lampLightElements;
+        this.cameraType = cameraType;
+        this.cameraManufacturer = cameraManufacturer;
+        this.cameraLensSensitivity = cameraLensSensitivity;
     }
-    else if (X == Y)
+
+    public void PrintDetails()
     {
-        if (X > Z)
-        {
-            X = Z;
-            Z = Y;
-            Y = Z;
+        Console.WriteLine("Lamp details:");
+        Console.WriteLine("Type: " + lampType);
+        Console.WriteLine("Manufacturer: " + lampManufacturer);
+        Console.WriteLine("Power (lumens): " + lampPower);
+        Console.WriteLine("Light elements: " + lampLightElements);
 
-        }
-
+        Console.WriteLine("Camera details:");
+        Console.WriteLine("Type: " + cameraType);
+        Console.WriteLine("Manufacturer: " + cameraManufacturer);
+        Console.WriteLine("Lens sensitivity: " + cameraLensSensitivity);
     }
-    else if (Y == Z)
+
+    public void ChangePower(int newPower)
     {
-        if (X > Y)
-        {
-            Y = X;
-            X = Z;
-            Z = Y;
-        }
+        lampPower = newPower;
     }
-    if (X < Y && X < Z)
+
+    public void ChangeLensSensitivity(int newSensitivity)
     {
-        if (Y < Z)
-        {
-
-
-        }
-        else
-        {
-            tempo = Z;
-            Z = Y;
-            Y = tempo;
-
-        }
+        cameraLensSensitivity = newSensitivity;
     }
-    else if (Y < X && Y < Z)
+}
+
+class Program
+{
+    static void Main(string[] args)
     {
-        tempo = X;
-        X = Y;
-        if (tempo < Z)
-        {
-            Y = tempo;
-        }
-        else {
-            Y = Z;
-            Z = tempo;
-        }
-    }
-    else if (Z < X && Z < Y)
-    {
-        tempo = X;
-        X = Z;
-        if (tempo < Y)
-        {
-            Z = Y;
-            Y = tempo;
-        }
-        else
-        {
-            Z = tempo;
+      
+        PhotoStudio studio1 = new PhotoStudio("LED", "XYZ Company", 1000, 4, "DSLR", "ABC Corporation", 200);
+        PhotoStudio studio2 = new PhotoStudio("Halogen", "123 Manufacturer", 800, 3, "Mirrorless", "DEF Inc.", 400);
 
-        }
+        
+        studio1.PrintDetails();
+        Console.WriteLine(); 
+        studio2.PrintDetails();
+        Console.WriteLine(); 
     }
-    cout << "X = " << X << " " << "Y = " << Y << " " << "Z = " << Z;
-    return 0;
 }
